@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Products |{{ block.super }}{% endblock %}
+
+{% block content %}
+<div class="breadcrumb-option spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="bo-links">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb End -->
+
+
+<section class="mb-4">
+    <div class="container">
+        <div class="row" style="margin:0;padding:0;">
+
+            {% include "products/snippets/product_list_snippets.html" with product=product %}
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+{% endblock %}

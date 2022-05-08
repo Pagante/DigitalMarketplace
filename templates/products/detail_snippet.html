@@ -1,0 +1,7 @@
+{% if product.description %}
+<p>{{ product.description|safe|escape |slice:":30"  }}</p>
+
+{% else %}
+<p>Content Coming Soon!!</p>
+
+{% endif %}

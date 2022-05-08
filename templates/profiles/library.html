@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load filename %}
+{% block title %}{{ block.super }} {% endblock %}
+
+{% block content %}
+
+
+<!-- Breadcrumb Begin -->
+<div class="breadcrumb-option spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="bo-links">
+                    <a href="/"><i class="fa fa-home"></i> Home</a>
+                    <span>Library</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb End -->
+<section class="mb-4">
+    <div class="container d-flex justify-content-center">
+        <table class="table table-responsive">
+            <thead>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Download</th>
+            </thead>
+
+            <tbody>
+                {% for product in products %}
+
+                <tr>
+                    <td>{{ product }}</td>
+                    <td>{{ product.description }}</td>
+                    <td><a href="{% url 'product:download_product' product.slug product.download|filename %}">Download</a></td>
+
+                </tr>
+
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+
+
+{% endblock %}

@@ -1,0 +1,183 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} {% endblock %}
+
+
+{% block content %}
+<!-- Hero Section Begin -->
+<section class="hero-section">
+    <div class="hs-slider owl-carousel">
+        <div class="hs-item set-bg" data-setbg="static/img/hero/hero-1.jpg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="hs-text">
+                            <h2>MeShutt Studio</h2>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                                incididunt ut labore et<br /> dolore magna aliqua. Quis ipsum suspendisse ultrices
+                                gravida accumsan lacus vel facilisis.</p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hs-item set-bg" data-setbg="static/img/hero/hero-2.jpg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="hs-text">
+                            <h2>Meshutt Studio</h2>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                                incididunt ut labore et<br /> dolore magna aliqua. Quis ipsum suspendisse ultrices
+                                gravida accumsan lacus vel facilisis.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Hero Section End -->
+
+<!-- Services Section Begin -->
+<section class="services-section spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-6 col-sm-6">
+                <div class="services-item">
+                    <img src="{% static 'img/services/service-1.jpg' %}" alt="">
+                    <!-- <h3>Shooting</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                        magna aliqua. Quis ipsum suspendisse ultrices gravida.</p> -->
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6">
+                <div class="services-item">
+                    <img src="{% static 'img/services/service-2.jpg' %}" alt="">
+                    <!-- <h3>Videos</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                        magna aliqua. Quis ipsum suspendisse ultrices gravida.</p> -->
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6">
+                <div class="services-item">
+                    <img src="{% static 'img/services/service-3.jpg' %}" alt="">
+                    <!-- <h3>Editing</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                        magna aliqua. Quis ipsum suspendisse ultrices gravida.</p> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Services Section End -->
+
+<!-- Categories Section Begin -->
+
+<section class="categories-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6">
+                <div class="section-title">
+                    <!-- <h2>Categories</h2> -->
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do<br /> eiusmod tempor
+                        incididunt ut labore et dolore.</p>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="right-btn"><a href="#" class="primary-btn">VIew all</a></div>
+            </div>
+        </div>
+        <div class="categories-slider owl-carousel">
+            {% for cat in category %}
+            <div class="cs-item">
+                {% for image in category.categoryimage_set.all %}
+                {% if image.feautured_image %}
+                <img src="{{image.image.url}}" alt="">
+                {% endif %}
+                {% endfor %}
+                <div class="cs-text">
+                    <!-- <h4>{{ cat.title }}</h4> -->
+                    <span>{{ cat.description }}</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<!-- Categories Section End -->
+
+<!-- Portfolio Section Begin -->
+<!-- <section class="portfolio-section spad">
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 p-0">
+                {% for product in featured_products %}
+                <div class="portfolio-filter">
+                    <div class="pf-item set-bg fashion" data-setbg="img/portfolio/pf-1.jpg">
+                        {% if product.get_featured_image %}
+                        <a href="{{ product.get_absolute_url }}">
+                            <img src="{{ product.get_featured_image.url }}" alt="">
+                        </a>
+                        
+                        {% endif %}
+                       
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="load-more-btn">
+        <a href="#">Load More</a>
+    </div>
+</section> -->
+<!-- Portfolio Section End -->
+
+<section class="portfolio-section spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title">
+                    <h2>Our latest works</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row" style="display: flex;">
+            {% for product in featured_products %}
+
+                <div class="col-md-3 p-0" style="flex:33.33%; text-align: center;">
+                    <div class="img-thumbnail">
+                        <a href="{{ product.get_absolute_url }}">
+                            {% if product.get_featured_image %}
+                            <img class="img-responsive" src="{{ product.get_featured_image.url }}" alt="Lights"
+                                style="max-width: 480;max-height:auto;">
+                            <div class="caption">
+                                <!-- <h4><small>{{ product.description }}</small></h4> -->
+                            </div>
+                            {% endif %}
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<!-- Portfolio Section End -->
+
+
+<!-- Search model Begin -->
+<div class="search-model">
+    <div class="h-100 d-flex align-items-center justify-content-center">
+        <div class="search-close-switch">+</div>
+        <form class="search-model-form">
+            <input type="text" id="search-input" placeholder="Search here.....">
+        </form>
+    </div>
+</div>
+<!-- Search model end -->
+{% endblock %}

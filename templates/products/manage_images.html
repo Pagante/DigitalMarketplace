@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}{{block.super}}{% endblock %}
+
+{% block content %}
+
+<div class="breadcrumb-option spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="bo-links">
+                    <a href="./index.html"><i class="fa fa-home"></i> Home</a>
+                    <span>{{ product.title}}: Images</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb End -->
+
+
+
+<section class="mb-4">
+    <div class="container d-flex justify-content-center">
+
+        <form method='POST' action='' enctype="multipart/form-data"> {% csrf_token %}
+            {{ formset.management_form }}
+            <table class="table table-responsive">
+                <thead>
+                    <th>Image</th>
+                    <th>Upload New</th>
+                    <th>Make Featured</th>
+                    <th>Delete Image</th>
+
+                </thead>
+                {% for form in formset %}
+
+
+                <img src="{{ product.image.url }}" alt="">
+                <tr>
+                    <td>
+                        <img src="{{ form.instance.image.url }}" width='200' />
+                    </td>
+                    {% for field in form %}
+                    <td>{{ field }}</td>
+                    {% endfor %}
+
+                </tr>
+                {% endfor %}
+
+                <tfoot>
+                    <td><input class="btn btn-primary rounded-pill" type='submit' value='Save' style="text-decoration: none; width: 100%;"/></td>
+                </tfoot>
+            </table>
+        </form>
+
+    </div>
+</section>
+
+{% endblock %}

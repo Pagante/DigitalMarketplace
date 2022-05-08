@@ -1,0 +1,5 @@
+{% if product.description %}
+<p>
+    {{ product.description|safe|escape |slice:":120" }}
+</p>
+{% endif %}

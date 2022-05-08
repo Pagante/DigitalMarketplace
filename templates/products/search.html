@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% load filename %}
+{% block content %}
+
+<!-- Breadcrumb Begin -->
+<div class="breadcrumb-option spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="bo-links">
+                    <a href="/"><i class="fa fa-home"></i> Home</a>
+                    <span>Result for: {{ query }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb End -->
+
+
+<section class="mb-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 p-0">
+                {% if results %}
+                <ol>
+                    <h3> Products</h3>
+                    {% for item in results %}
+                    {% if item|classname == "Product" %}
+                    <li>
+
+                        <div>
+                            <a href="{{ item.get_absolute_url }}">{{ item }}</a>
+                        </div>
+
+                        {% for image in item.productimage_set.all %}
+
+                        <div>
+                            <div class="img-thumbnail">
+                                <a href="{{ item.get_absolute_url }}">
+                                    {% if image.feautured_image %}
+                                    <img src="{{ image.image.url }}" alt="Lights" style="width:100%">
+                                    <div class="caption">
+                                        <p>{{ item.description }}</p>
+                                    </div>
+                                    {% endif %}
+                                </a>
+                            </div>
+                        </div>
+
+                        {% endfor %}
+                    </li>
+                    {% endif%}
+
+
+                    {% endfor %}
+
+                </ol>
+
+                <h3> Categor{% if categories|length == 1 %}y{% else %}ies{% endif %} </h3>
+                {% for item in results %}
+                <ul>
+                    {% if item|classname == 'Category' %}
+                    <li>
+                        <a href="{{ item.get_absolute_url }}">{{ item }}</a>
+                    </li>
+                    {% endif %}
+                    {% for image in item.categoryimage_set.all %}
+
+                    <div>
+                        <div class="img-thumbnail">
+                            <a href="{{ item.get_absolute_url }}">
+                                {% if image.feautured_image %}
+                                <img src="{{ image.image.url }}" alt="Lights" style="width:100%">
+                                <div class="caption">
+                                    <p>{{ item.description }}</p>
+                                </div>
+                                {% endif %}
+                            </a>
+                        </div>
+                    </div>
+
+                    {% endfor %}
+                </ul>
+                {% endfor %}
+
+                {% else %}
+
+                <div>
+                    <h3>No results found</h3>
+                </div>
+                {% endif %}
+
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

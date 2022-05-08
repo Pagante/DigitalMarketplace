@@ -1,0 +1,132 @@
+<!--  -->
+
+
+{% extends 'base.html' %}
+
+{% load filename %}
+{% block title %} {{ product.title }} |{{ block.super }} {% endblock %}
+
+{% block content %}
+
+<!-- Breadcrumb Begin -->
+<div class="breadcrumb-option spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="bo-links">
+                    <a href="/"><i class="fa fa-home"></i> Home</a>
+                    <span>{{ product.title }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb End -->
+
+
+<section class="mb-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                {% include "products/snippets/product_detail.html" with product=object %}
+            </div>
+            <div class="col-lg-6">
+
+                <h5>{{ product.title }}
+                </h5>
+                <small>Image: #2878687{{ product.id }}</small>
+                <h6>
+
+                    {% for cat in categories %}
+                    <li>
+                        <a href="{{ cat.get_absolute_url }}">{{ cat.title }}</a>
+                    </li>
+                    {% endfor %}
+
+                </h6>
+                <hr>
+                <p>$ {{ product.get_price }}</p>
+                <hr>
+
+                {% include "products/snippets/product_content.html" with product=product %}
+
+                {% if in_cart %}
+                <div class="" style="text-align: center;">
+                    <a class="btn btn-primary rounded-pill" href="{% url 'cart:cart' %}"
+                        style="text-decoration: none; width: 100%;">
+                        In Cart |View Cart </a>
+                </div>
+                {% else %}
+                <div class="" style="text-align: center;">
+                    <a class="btn btn-primary rounded-pill" href="{% url 'cart:update_cart' product.id %}"
+                        style="text-decoration: none; width: 100%;">
+                        Add to Cart </a>
+                </div>
+                {% endif %}
+
+{% if request.user == product.user %}
+                {% if downloadable or edit %}
+                <div class="card m-2">
+                    <div class="card-header">
+                        My Actions
+                    </div>
+                    <div class="card-body">
+
+                        <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+                            {% if product.download and downloadable %}
+                            <a class=" btn btn-outline-info" href="download/{{ product.download |filename }}">Download
+                                Product</a>
+                            {% endif %}
+                            {% if edit%}
+                            <a href="{{ product.edit_product_url }}" class="btn btn-outline-warning">Edit:
+                                {{ product }}</a>
+
+                            <a class="btn btn-outline-primary" href="{% url 'product:image_product' product.slug %}">Manage
+                                Image</a>
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+                </div>
+                {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        {% if related %}
+        <hr>
+        <h3>Related Product</h3>
+        <div class="row" style="display: flex;">
+            {% for item in related %}
+
+
+            {% for image in item.productimage_set.all %}
+
+            <div class="col-md-2 p-0" style="flex:33.33%; text-align: center;">
+                <div class="img-thumbnail">
+                    <a href="{{ item.get_absolute_url }}">
+                        {% if image.feautured_image %}
+                        <img class="img-responsive" src="{{ image.image.url }}" alt="Lights"
+                            style="max-width: 480;max-height:auto;">
+                        <div class="caption">
+                            <p>{{ item.description }}</p>
+                        </div>
+                        {% endif %}
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+            {% endfor %}
+        </div>
+
+
+
+
+        {% endif %}
+    </div>
+</section>
+
+{% endblock %}

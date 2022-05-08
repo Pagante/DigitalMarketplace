@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+{{ category }}
+
+{% for product in category.products.all %}
+
+<section class="mb-4">
+    <div class="container">
+        <div class="row" style="margin:0;padding:0;">
+            <div class="col-md-2 p-0"> 
+                {% for image in product.productimage_set.all %}
+                {% if image.feautured_image %}
+                <a href="{{ product.get_absolute_url }}"> <img src="{{ image.image.url }}" alt="" style="max-width: 480;max-height: auto;"></a>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+
+<div class="container mb-4">
+    {% endfor %}
+
+
+{% if related %}
+<hr>
+<h3>Related Category</h3>
+
+{% for item in related %}
+
+<li>
+    <a href="{{ item.get_absolute_url }}">{{ item }}</a>
+</li>
+
+{% endfor %}
+
+{% endif %}
+</div>
+
+{% endblock %}
+

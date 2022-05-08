@@ -1,0 +1,22 @@
+{% for product in products %}
+
+
+<div class="col-md-2 p-0" style="flex:33.33%; text-align: center;">
+    <a href="{{ product.get_absolute_url }}">
+        <small>{{ product }}</small>
+    </a>
+    <div class="img-thumbnail">
+        <a href="{{ product.get_absolute_url }}">
+            {% for image in product.productimage_set.all %}
+            {% if image.feautured_image %}
+            <img class="img-responsive" src="{{ image.image.url }}" alt="Lights" style="max-width: 480;max-height:auto;">
+            <div class="caption">
+                <p>{{ item.description }}</p>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </a>
+        {% include "products/detail_snippet.html" with products=obj %}
+    </div>
+</div>
+{% endfor %}
